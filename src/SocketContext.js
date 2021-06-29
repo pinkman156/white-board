@@ -28,6 +28,10 @@ const ContextProvider = ({ children }) => {
       });
 
     socket.on("me", (id) => setMe(id));
+
+    socket.on("callUser", ({ from, name: callerName, signal }) => {
+      setCall({ isReceivingCall: true, from, name: callerName, signal });
+    });
   }, []);
 
   const answerCall = () => {
@@ -37,10 +41,6 @@ const ContextProvider = ({ children }) => {
 
     peer.on("signal", (data) => {
       socket.emit("answerCall", { signal: data, to: call.from });
-    });
-
-    socket.on("callUser", ({ from, name: callerName, signal }) => {
-      setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
 
     peer.on("stream", (currentStream) => {
