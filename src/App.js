@@ -8,14 +8,18 @@ import Options from "./components/Options";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    borderRadius: 15,
-    margin: "30px 100px",
+    margin: "",
     display: "flex",
+    fontFamily: "Times New Roman",
+
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    width: "600px",
-    border: "2px solid black",
+    width: "100%  ",
+    backgroundColor: "#662900",
+    color: "white",
+    fontWeight: "bold",
+    padding: "10px",
 
     [theme.breakpoints.down("xs")]: {
       width: "90%",
@@ -36,7 +40,7 @@ export default function App() {
     <div className={classes.wrapper}>
       <AppBar className={classes.appBar} position="static">
         <Typography variant="h2" align="center">
-          Video Chat
+          WhiteBoard
         </Typography>
       </AppBar>
       <VideoPlayer />

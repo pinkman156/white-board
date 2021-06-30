@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: '10px 20px',
     border: '2px solid black',
+    backgroundColor: "#ffff99",
+
   },
 }));
 
@@ -60,9 +62,7 @@ const Options = ({ children }) => {
               <Typography gutterBottom variant="h6">Make a call</Typography>
               <TextField label="ID to call" value={idToCall} onChange={(e) => setIdToCall(e.target.value)} fullWidth />
               {callAccepted && !callEnded ? (
-                <Button variant="contained" color="secondary" startIcon={<PhoneDisabled fontSize="large" />} fullWidth onClick={leaveCall} className={classes.margin}>
-                  Hang Up
-                </Button>
+                <div></div>
               ) : (
                 <Button variant="contained" color="primary" startIcon={<Phone fontSize="large" />} fullWidth onClick={() => callUser(idToCall)} className={classes.margin}>
                   Call
