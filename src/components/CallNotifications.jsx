@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 
 import { SocketContext } from '../SocketContext';
 
-const Notifications = () => {
+const CallNotifications = () => {
   const { answerCall, call, callAccepted } = useContext(SocketContext);
 
   return (
@@ -20,4 +20,4 @@ const Notifications = () => {
   );
 };
 
-export default Notifications;
+export default CallNotifications;

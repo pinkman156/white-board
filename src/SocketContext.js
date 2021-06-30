@@ -14,15 +14,10 @@ const ContextProvider = ({ children }) => {
   const [name, setName] = useState("");
   const [call, setCall] = useState({});
   const [me, setMe] = useState("");
-  const [text, setText] = useState("Initial");
 
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
-
-  useEffect(() => {
-    socket.emit("send", { text: text, to: call.from });
-  }, [text]);
 
   socket.on("canvas-data", (data) => {
     var interval = setInterval(() => {
@@ -65,10 +60,6 @@ const ContextProvider = ({ children }) => {
       // console.log("texting");
     });
 
-    socket.on("receive", (data) => {
-      setText(data.text);
-    });
-
     peer.on("stream", (currentStream) => {
       userVideo.current.srcObject = currentStream;
     });
@@ -88,12 +79,6 @@ const ContextProvider = ({ children }) => {
         from: me,
         name,
       });
-    });
-
-    socket.on("receive", (data) => {
-      setText(data.text);
-      console.log(data.text);
-      console.log({ me });
     });
 
     peer.on("stream", (currentStream) => {
@@ -120,7 +105,7 @@ const ContextProvider = ({ children }) => {
   function show() {
     var x = document.getElementById("sketch");
     var y = document.getElementById("btn");
-    if (x.style.display == "none") {
+    if (x.style.display === "none") {
       x.style.display = "block";
     } else {
       x.style.display = "none";
@@ -147,7 +132,7 @@ const ContextProvider = ({ children }) => {
 
     canvas.addEventListener(
       "mousemove",
-      (e) => {
+      function (e) {
         last_mouse.x = mouse.x;
         last_mouse.y = mouse.y;
 
@@ -178,7 +163,6 @@ const ContextProvider = ({ children }) => {
       false
     );
 
-    var root = document.documentElement;
     var onPaint = function () {
       ctx.beginPath();
       ctx.moveTo(last_mouse.x, last_mouse.y);
