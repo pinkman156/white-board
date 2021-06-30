@@ -24,8 +24,8 @@ const ContextProvider = ({ children }) => {
     socket.emit("send", { text: text, to: call.from });
   }, [text]);
 
-  socket.on("canvas-data", function (data) {
-    var interval = setInterval(function () {
+  socket.on("canvas-data", (data) => {
+    var interval = setInterval(() => {
       clearInterval(interval);
       var image = new Image();
       var canvas = document.querySelector("#board");
@@ -117,15 +117,6 @@ const ContextProvider = ({ children }) => {
     window.location.reload();
   };
 
-  // canvas.addEventListener("touchmove", function (e) {
-  //   /* math to calculate params */
-  //   socket.emit("draw", params);
-  // });
-
-  // socket.on("draw", function (params) {
-  //   ctx.fillRect(params);
-  // });
-
   function show() {
     var x = document.getElementById("sketch");
     var y = document.getElementById("btn");
@@ -145,7 +136,6 @@ const ContextProvider = ({ children }) => {
   function drawOnCanvas() {
     var canvas = document.querySelector("#board");
     var ctx = canvas.getContext("2d");
-    var timeout;
 
     var sketch = document.querySelector("#sketch");
     var sketch_style = getComputedStyle(sketch);
@@ -155,10 +145,9 @@ const ContextProvider = ({ children }) => {
     var mouse = { x: 0, y: 0 };
     var last_mouse = { x: 0, y: 0 };
 
-    /* Mouse Capturing Work */
     canvas.addEventListener(
       "mousemove",
-      function (e) {
+      (e) => {
         last_mouse.x = mouse.x;
         last_mouse.y = mouse.y;
 
@@ -168,7 +157,6 @@ const ContextProvider = ({ children }) => {
       false
     );
 
-    /* Drawing on Paint App */
     ctx.lineWidth = 5;
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
@@ -176,7 +164,7 @@ const ContextProvider = ({ children }) => {
 
     canvas.addEventListener(
       "mousedown",
-      function (e) {
+      (e) => {
         canvas.addEventListener("mousemove", onPaint, false);
       },
       false
@@ -184,7 +172,7 @@ const ContextProvider = ({ children }) => {
 
     canvas.addEventListener(
       "mouseup",
-      function () {
+      () => {
         canvas.removeEventListener("mousemove", onPaint, false);
       },
       false
@@ -201,13 +189,6 @@ const ContextProvider = ({ children }) => {
       var base64ImageData = canvas.toDataURL("image/png");
       console.log(base64ImageData);
       socket.emit("canvas-data", base64ImageData);
-
-      // if (timeout != undefined) clearTimeout(timeout);
-      // timeout = setTimeout(function () {
-      //   var base64ImageData = canvas.toDataURL("image/png");
-      //   console.log();
-      //   socket.emit("canvas-data", base64ImageData);
-      // }, 1000);
     };
   }
 
